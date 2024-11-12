@@ -1,5 +1,5 @@
 import Header from '../components/Header';
-import { createSignal, Show, For } from 'solid-js';
+import { createSignal, For } from 'solid-js';
 
 function CloseMySkillGaps(props) {
   const { user, handleSignOut } = props;

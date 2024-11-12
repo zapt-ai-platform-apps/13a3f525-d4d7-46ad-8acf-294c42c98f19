@@ -4,9 +4,6 @@ import { useNavigate } from '@solidjs/router';
 
 function RoleExplorer(props) {
   const { user, progress, setProgress } = props;
-  const [conversationHistory, setConversationHistory] = createSignal([
-    { role: 'system', content: initialPrompt },
-  ]);
   const [inputValue, setInputValue] = createSignal('');
   const [loading, setLoading] = createSignal(false);
   const navigate = useNavigate();
@@ -33,6 +30,10 @@ Offer next steps of how to get into the role. Where university is required pleas
 If the users preferred role is vocational please offer the user relevant courses/apprenticeships again with hyperlinks to the websites which offer them.
 
 Finish off by asking the user if they would either like to save this job role for further exploration later, or explore another role. If they select another role, please offer them another 5 suitable career options. Then follow the same structure as above.`;
+
+  const [conversationHistory, setConversationHistory] = createSignal([
+    { role: 'system', content: initialPrompt },
+  ]);
 
   const sendMessage = async (message) => {
     setLoading(true);
@@ -70,7 +71,11 @@ Finish off by asking the user if they would either like to save this job role fo
         <For each={conversationHistory().slice(1)}>
           {(msg) => (
             <div class={`mb-4 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
-              <div class={`inline-block px-4 py-2 rounded-lg ${msg.role === 'user' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-800'}`}>
+              <div
+                class={`inline-block px-4 py-2 rounded-lg ${
+                  msg.role === 'user' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-800'
+                }`}
+              >
                 {msg.content}
               </div>
             </div>
