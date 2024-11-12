@@ -54,7 +54,7 @@ immerJ is a career development platform leveraging AI to guide users from role c
 
 ### 4. Application Development Hub
 
-- **Features:** 
+- **Features:**
   - **CV Development (Coming Soon)**
   - **Interview Practice (Coming Soon)**
   - **Apply for Roles**
@@ -70,5 +70,11 @@ immerJ is a career development platform leveraging AI to guide users from role c
 - **Sentry Error Logging:** Used for error tracking and monitoring.
 
 **Note:** Some features like searching external job sites or courses may require additional API keys and handling, which should be configured appropriately in the environment variables.
+
+## Environment Variables
+
+- `VITE_PUBLIC_APP_ID` - Your ZAPT application ID.
+- `VITE_PUBLIC_SENTRY_DSN` - Your Sentry Data Source Name for error logging.
+- `VITE_PUBLIC_APP_ENV` - The environment (e.g., production, development).
 
 ---
