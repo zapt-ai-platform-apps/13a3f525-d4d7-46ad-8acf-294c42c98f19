@@ -2,14 +2,14 @@
 
 ## Overview
 
-immerJ is a career development platform leveraging AI to take users from role conception to working their dream job through an immersive and engaging journey. The platform is designed to help secondary school students, university students, employed individuals seeking a change, and unemployed individuals identify suitable careers.
+immerJ is a career development platform leveraging AI to guide users from role conception to securing their dream job through an immersive and engaging journey. The platform is designed to assist secondary school students, university students, employed individuals seeking a change, and unemployed individuals in identifying suitable careers tailored to their interests and qualifications.
 
 ## User Journeys
 
 ### 1. Welcome Page
 
-- **Step 1:** The user lands on the welcome page which displays the immerJ logo, the company's vision statement, and navigation options.
-- **Step 2:** If not signed in, the user is prompted to sign in with ZAPT.
+- **Step 1:** The user lands on the welcome page displaying the immerJ logo, the company's vision statement, and navigation options.
+- **Step 2:** If not signed in, the user is prompted to sign in with ZAPT using social providers like Google, Facebook, or Apple.
 - **Step 3:** Upon signing in, the user can select from the following hubs:
   - Develop My Vision
   - Close My Skill Gaps
@@ -20,7 +20,7 @@ immerJ is a career development platform leveraging AI to take users from role co
 #### Modules:
 
 1. **Role Explorer**
-   - **Step 1:** The user engages in a conversational chat with an AI career coach.
+   - **Step 1:** The user engages in a conversational chat with an AI career coach named immerJ.
    - **Step 2:** The AI asks a series of questions to understand the user's interests, academic background, and aspirations.
    - **Step 3:** Based on the responses, the AI provides 10 personalized career suggestions.
    - **Step 4:** The user selects a preferred role for further exploration.
@@ -31,12 +31,12 @@ immerJ is a career development platform leveraging AI to take users from role co
 2. **Find My Work Environment**
    - **Step 1:** The AI helps the user consider factors such as personal interests, work-life balance, job security, career growth, and work culture.
    - **Step 2:** The AI asks interactive questions for each theme to identify the user's exact preferences.
-   - **Step 3:** Based on the insights, the AI summarizes findings and presents 5 potential jobs that match the user's preferences.
+   - **Step 3:** Based on the insights, the AI summarizes findings and presents potential jobs that match the user's preferences.
    - **Step 4:** The user selects one of the options for further exploration.
 
 3. **Identify My Skill Gaps**
    - **Step 1:** The AI highlights the competencies required for the selected role.
-   - **Step 2:** The user is presented with 3 challenging tasks related to the role.
+   - **Step 2:** The user is presented with challenging tasks related to the role.
    - **Step 3:** The user attempts each challenge, receiving hints and feedback as needed.
    - **Step 4:** After completing the challenges, the AI reviews strengths and areas for improvement.
 
@@ -60,13 +60,6 @@ immerJ is a career development platform leveraging AI to take users from role co
   - Apply for Roles
 - **Step 1:** When selecting "Apply for Roles," the platform searches LinkedIn and other job sites for suitable roles based on the user's saved preferences.
 - **Step 2:** Roles are displayed with hyperlinks, allowing the user to apply directly.
-
-## Additional Features
-
-- **User Authentication:** Users can sign in using social providers like Google, Facebook, and Apple via Supabase Auth.
-- **AI Integration:** The platform leverages AI through ChatGPT to provide personalized coaching and interactive experiences.
-- **Progress Tracking:** User responses and progress are saved and used across modules to provide a cohesive experience.
-- **Responsive Design:** The app is designed to be responsive and user-friendly across all devices.
 
 ## External APIs and Services
 

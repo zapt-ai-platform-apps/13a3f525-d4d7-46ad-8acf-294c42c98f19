@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
+const { defineConfig } = require('vite');
+const solidPlugin = require('vite-plugin-solid');
 
-export default defineConfig({
+module.exports = defineConfig({
   plugins: [solidPlugin()],
   build: {
     target: 'esnext',

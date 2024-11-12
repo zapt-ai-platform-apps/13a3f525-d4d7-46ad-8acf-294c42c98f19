@@ -17,7 +17,7 @@ function HomePage(props) {
         <div class="text-center">
           <h2 class="text-4xl font-bold mb-4 text-purple-600">Welcome to immerJ</h2>
           <p class="text-lg text-gray-700 mb-8">
-            A career development platform leveraging AI to take users from role conception to working their dream job through an immersive & engaging journey.
+            A career development platform leveraging AI to take users from role conception to working their dream job through an immersive &amp; engaging journey.
           </p>
           <Show when={user}>
             <button
