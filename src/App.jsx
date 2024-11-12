@@ -62,7 +62,7 @@ function App() {
 
 function AuthPage() {
   return (
-    <div class="flex items-center justify-center h-full">
+    <div class="flex items-center justify-center min-h-screen">
       <div class="w-full max-w-md p-8 bg-white rounded-xl shadow-lg">
         <h2 class="text-3xl font-bold mb-6 text-center text-purple-600">Sign in with ZAPT</h2>
         <a
@@ -79,6 +79,7 @@ function AuthPage() {
           providers={['google', 'facebook', 'apple']}
           magicLink={true}
           showLinks={false}
+          view="magic_link"
         />
       </div>
     </div>
