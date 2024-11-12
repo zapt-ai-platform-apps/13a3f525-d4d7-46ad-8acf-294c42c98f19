@@ -17,13 +17,17 @@ function App() {
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       setUser(user);
+    } else {
+      navigate('/login');
     }
   };
 
   onMount(checkUserSignedIn);
 
   createEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
         setUser(session.user);
       } else {
@@ -31,8 +35,9 @@ function App() {
         navigate('/login');
       }
     });
+
     return () => {
-      authListener.unsubscribe();
+      subscription.unsubscribe();
     };
   });
 
