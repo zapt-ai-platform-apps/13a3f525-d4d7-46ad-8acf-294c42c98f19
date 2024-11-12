@@ -2,6 +2,7 @@
   "name": "immerj",
   "version": "1.0.0",
   "description": "A career development platform leveraging AI to take users from role conception to working their dream job through an immersive & engaging journey.",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

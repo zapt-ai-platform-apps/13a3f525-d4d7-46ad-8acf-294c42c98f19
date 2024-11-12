@@ -55,8 +55,8 @@ immerJ is a career development platform leveraging AI to guide users from role c
 ### 4. Application Development Hub
 
 - **Features:** 
-  - CV Development (Placeholder)
-  - Interview Practice (Placeholder)
+  - CV Development (Coming Soon)
+  - Interview Practice (Coming Soon)
   - Apply for Roles
 - **Step 1:** When selecting "Apply for Roles," the platform searches LinkedIn and other job sites for suitable roles based on the user's saved preferences.
 - **Step 2:** Roles are displayed with hyperlinks, allowing the user to apply directly.
@@ -69,6 +69,6 @@ immerJ is a career development platform leveraging AI to guide users from role c
 - **Supabase Auth:** Used for user authentication.
 - **Sentry Error Logging:** Used for error tracking and monitoring.
 
----
-
 **Note:** Some features like searching external job sites or courses may require additional API keys and handling, which should be configured appropriately in the environment variables.
+
+---
