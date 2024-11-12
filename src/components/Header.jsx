@@ -15,21 +15,33 @@ function Header(props) {
           <h1 class="text-2xl font-bold text-purple-600">immerJ</h1>
         </div>
         <nav class="space-x-6 flex items-center">
-          {!user() && (
-            <A
-              href="/login"
-              class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
-            >
-              Log In
-            </A>
-          )}
           {user() && (
-            <button
-              class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
-              onClick={handleSignOut}
-            >
-              Log Out
-            </button>
+            <>
+              <A
+                href="/develop-my-vision"
+                class="text-purple-600 hover:underline cursor-pointer"
+              >
+                Develop My Vision
+              </A>
+              <A
+                href="/close-my-skill-gaps"
+                class="text-purple-600 hover:underline cursor-pointer"
+              >
+                Close My Skill Gaps
+              </A>
+              <A
+                href="/application-development"
+                class="text-purple-600 hover:underline cursor-pointer"
+              >
+                Application Development
+              </A>
+              <button
+                class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
+                onClick={handleSignOut}
+              >
+                Log Out
+              </button>
+            </>
           )}
         </nav>
       </div>

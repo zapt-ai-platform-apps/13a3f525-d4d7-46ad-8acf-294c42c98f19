@@ -7,7 +7,6 @@ function RoleExplorer(props) {
   const [inputValue, setInputValue] = createSignal('');
   const [loading, setLoading] = createSignal(false);
   const [chatHistory, setChatHistory] = createSignal([]);
-  const [conversationData, setConversationData] = createSignal({});
   const navigate = useNavigate();
 
   const initialPrompt = `You are a career coach named immerJ for secondary school students, engaging users in a step-by-step conversational format. Ask each question one at a time, waiting for the user's response before continuing to the next question, mimicking a live, interactive chat experience.

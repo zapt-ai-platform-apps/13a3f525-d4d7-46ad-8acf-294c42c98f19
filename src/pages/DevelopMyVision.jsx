@@ -22,7 +22,7 @@ function DevelopMyVision(props) {
   });
 
   onMount(() => {
-    if (!user) {
+    if (!user()) {
       navigate('/login');
     }
   });

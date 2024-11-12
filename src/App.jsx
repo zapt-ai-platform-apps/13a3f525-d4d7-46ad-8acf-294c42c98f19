@@ -2,8 +2,7 @@ import { createSignal, onMount, createEffect, onCleanup } from 'solid-js';
 import { supabase } from './supabaseClient';
 import { Auth } from '@supabase/auth-ui-solid';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { Routes, Route, useNavigate, Navigate } from '@solidjs/router';
-import HomePage from './pages/HomePage';
+import { Routes, Route, useNavigate, Navigate, Show } from '@solidjs/router';
 import DevelopMyVision from './pages/DevelopMyVision';
 import CloseMySkillGaps from './pages/CloseMySkillGaps';
 import ApplicationDevelopment from './pages/ApplicationDevelopment';
@@ -11,6 +10,7 @@ import './App.css';
 
 function App() {
   const [user, setUser] = createSignal(null);
+  const navigate = useNavigate();
 
   const checkUserSignedIn = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -27,8 +27,10 @@ function App() {
     } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
         setUser(session.user);
+        navigate('/develop-my-vision');
       } else {
         setUser(null);
+        navigate('/login');
       }
     });
 
@@ -45,8 +47,22 @@ function App() {
   return (
     <div class="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
       <Routes>
-        <Route path="/" element={<HomePage user={user} handleSignOut={handleSignOut} />} />
-        <Route path="/login" element={<AuthPage />} />
+        <Route
+          path="/"
+          element={
+            <Show when={!user()} fallback={<Navigate href="/develop-my-vision" />}>
+              <AuthPage />
+            </Show>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Show when={!user()} fallback={<Navigate href="/develop-my-vision" />}>
+              <AuthPage />
+            </Show>
+          }
+        />
         <Route
           path="/develop-my-vision/*"
           element={
