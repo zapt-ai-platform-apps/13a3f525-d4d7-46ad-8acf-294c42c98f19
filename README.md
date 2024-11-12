@@ -4,11 +4,13 @@
 
 immerJ is a career development platform leveraging AI to guide users from role conception to securing their dream job through an immersive and engaging journey. The platform is designed to assist secondary school students in identifying suitable careers tailored to their interests and qualifications.
 
+The enhanced HomePage features a full-screen, immersive design with inspiring imagery representing endless career opportunities. Users are greeted with the platform's vision and easy navigation to key modules.
+
 ## User Journeys
 
 ### 1. Welcome Page
 
-1. **Landing:** The user lands on the welcome page displaying the immerJ logo, the company's vision statement, and navigation options.
+1. **Landing:** The user lands on the welcome page featuring an inspiring background image, the immerJ logo, the company's vision statement, and navigation options.
 
    - **Company Vision:** "A career development platform leveraging AI to take users from role conception to working their dream job through an immersive & engaging journey."
 
@@ -76,7 +78,7 @@ This hub guides the user through a series of modules to help them explore and re
 ## Additional Features
 
 - **Logout Functionality:** Users can securely log out of their accounts using the "Log Out" button available in the navigation header.
-- **Responsive Design:** The platform is designed to be responsive and user-friendly across various devices and screen sizes.
+- **Responsive Design:** The platform features a responsive design that utilizes the entire screen, providing an immersive experience across various devices and screen sizes.
 
 ## External APIs Used
 
