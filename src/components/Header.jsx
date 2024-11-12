@@ -15,9 +15,6 @@ function Header(props) {
           <h1 class="text-2xl font-bold text-purple-600">immerJ</h1>
         </div>
         <nav class="space-x-6 flex items-center">
-          <A href="/" class="text-gray-700 hover:text-purple-600 cursor-pointer">
-            Home
-          </A>
           <A href="/develop-my-vision" class="text-gray-700 hover:text-purple-600 cursor-pointer">
             Develop My Vision
           </A>

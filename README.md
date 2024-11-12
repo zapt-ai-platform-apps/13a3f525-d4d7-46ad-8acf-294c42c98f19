@@ -2,20 +2,27 @@
 
 ## Overview
 
-immerJ is a career development platform leveraging AI to guide users from role conception to securing their dream job through an immersive and engaging journey. The platform is designed to assist secondary school students, university students, employed individuals seeking a change, and unemployed individuals in identifying suitable careers tailored to their interests and qualifications.
+immerJ is a career development platform leveraging AI to guide users from role conception to securing their dream job through an immersive and engaging journey. The platform is designed to assist secondary school students in identifying suitable careers tailored to their interests and qualifications.
 
 ## User Journeys
 
 ### 1. Welcome Page
 
 1. **Landing:** The user lands on the welcome page displaying the immerJ logo, the company's vision statement, and navigation options.
-2. **Sign-In:** If not signed in, the user is prompted to sign in with ZAPT using social providers like Google, Facebook, or Apple.
-3. **Navigation:** Upon signing in, the user can select from the following hubs:
-   - Develop My Vision
-   - Close My Skill Gaps
-   - Application Development
+
+   - **Company Vision:** "A career development platform leveraging AI to take users from role conception to working their dream job through an immersive & engaging journey."
+
+2. **Authentication:** If not signed in, the user is prompted to sign in with ZAPT using social providers like Google, Facebook, or Apple.
+
+3. **Navigation:** Once signed in, the user can choose from the following options:
+
+   - **Develop My Vision**
+   - **Close My Skill Gaps**
+   - **Application Development**
 
 ### 2. Develop My Vision Hub
+
+This hub guides the user through a series of modules to help them explore and refine their career vision.
 
 #### Modules:
 
@@ -25,15 +32,16 @@ immerJ is a career development platform leveraging AI to guide users from role c
 - **Step 2:** The AI asks a series of personalized questions to understand the user's interests, academic background, and aspirations.
 - **Step 3:** Based on the responses, the AI provides 10 personalized career suggestions.
 - **Step 4:** The user selects a preferred role for further exploration.
-- **Step 5:** For students in year 12/13, additional specializations are offered.
-- **Step 6:** Detailed information about the selected role is provided, including key skills, day-in-the-life, entry requirements, and suggestions to close any qualification gaps.
-- **Step 7:** The user can choose to save the role for later exploration or explore another role.
+- **Step 5:** If the user is in years 12/13, additional specializations are offered.
+- **Step 6:** Detailed information about the selected role is provided, including key skills, day-in-the-life, entry requirements, gap analysis, and pros and cons specific to the user.
+- **Step 7:** The AI offers next steps, including relevant university courses or vocational training with hyperlinks.
+- **Step 8:** The user can choose to save the role for later or explore another role.
 
 **2. Find My Work Environment**
 
 - **Step 1:** The AI helps the user consider factors such as personal interests, work-life balance, job security, career growth, and work culture.
 - **Step 2:** The AI asks interactive questions for each theme to identify the user's exact preferences.
-- **Step 3:** Based on the insights, the AI summarizes findings and presents 5 potential jobs that match the user's preferences.
+- **Step 3:** Based on the insights, the AI summarizes findings and presents 5 potential jobs matching the user's preferences.
 - **Step 4:** The user selects one of the options for further exploration.
 
 **3. Identify My Skill Gaps**
@@ -43,16 +51,16 @@ immerJ is a career development platform leveraging AI to guide users from role c
 - **Step 3:** The user attempts each challenge, receiving hints and feedback as needed.
 - **Step 4:** After completing the challenges, the AI reviews strengths and areas for improvement.
 
-**4. Immersive Day-in-the-life**
+**4. Immersive Day-in-the-Life**
 
-- **Step 1:** The AI provides an immersive, descriptive experience of a day in the life of the selected role.
+- **Step 1:** The AI provides an immersive, descriptive experience of a day in the life of the selected role within the specified sector and organization type.
 - **Step 2:** The user participates in interactive tasks throughout the day simulation.
 - **Step 3:** Feedback is provided after each activity, focusing on areas to improve.
 - **Step 4:** At the end of the day, the AI offers an overall review of the user's performance.
 
 ### 3. Close My Skill Gaps Hub
 
-- **Step 1:** The user views a list of competencies to focus on.
+- **Step 1:** The user views a list of competencies to focus on, based on previous modules.
 - **Step 2:** The platform provides relevant courses from Udemy and Coursera to help the user develop these skills.
 - **Step 3:** The user can select and explore courses with direct links to close skill gaps.
 

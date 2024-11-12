@@ -6,6 +6,8 @@ function RoleExplorer(props) {
   const { user, progress, setProgress } = props;
   const [inputValue, setInputValue] = createSignal('');
   const [loading, setLoading] = createSignal(false);
+  const [chatHistory, setChatHistory] = createSignal([]);
+  const [conversationData, setConversationData] = createSignal({});
   const navigate = useNavigate();
 
   const initialPrompt = `You are a career coach named immerJ for secondary school students, engaging users in a step-by-step conversational format. Ask each question one at a time, waiting for the user's response before continuing to the next question, mimicking a live, interactive chat experience.
@@ -31,26 +33,47 @@ If the users preferred role is vocational please offer the user relevant courses
 
 Finish off by asking the user if they would either like to save this job role for further exploration later, or explore another role. If they select another role, please offer them another 5 suitable career options. Then follow the same structure as above.`;
 
-  const [conversationHistory, setConversationHistory] = createSignal([
-    { role: 'system', content: initialPrompt },
-  ]);
-
   const sendMessage = async (message) => {
     setLoading(true);
-    const updatedConversation = [...conversationHistory(), { role: 'user', content: message }];
-    setConversationHistory(updatedConversation);
+    const updatedChatHistory = [...chatHistory(), { role: 'user', content: message }];
+    setChatHistory(updatedChatHistory);
 
     try {
       const response = await createEvent('chatgpt_request', {
-        messages: updatedConversation,
+        prompt: initialPrompt,
+        conversation: updatedChatHistory,
         response_type: 'text',
       });
-      setConversationHistory([...updatedConversation, { role: 'assistant', content: response }]);
+      setChatHistory([...updatedChatHistory, { role: 'assistant', content: response }]);
+
+      // Extract key information based on the assistant's message
+      extractData(response);
     } catch (error) {
       console.error('Error during ChatGPT request:', error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const extractData = (assistantMessage) => {
+    // Implement logic to extract data such as preferred role, academic year, subjects taken, and country
+    // This is a placeholder example
+    if (assistantMessage.includes('Let\'s begin')) {
+      // Starting the conversation
+    } else if (assistantMessage.toLowerCase().includes('academic year')) {
+      setConversationData({ ...conversationData(), academicYear: inputValue() });
+      setProgress({ ...progress(), academicYear: inputValue() });
+    } else if (assistantMessage.toLowerCase().includes('subjects are you taking')) {
+      setConversationData({ ...conversationData(), subjectsTaken: inputValue() });
+      setProgress({ ...progress(), subjectsTaken: inputValue() });
+    } else if (assistantMessage.toLowerCase().includes('what country are you based in')) {
+      setConversationData({ ...conversationData(), country: inputValue() });
+      setProgress({ ...progress(), country: inputValue() });
+    } else if (assistantMessage.toLowerCase().includes('select your preferred option')) {
+      setConversationData({ ...conversationData(), preferredRoleTitle: inputValue() });
+      setProgress({ ...progress(), preferredRoleTitle: inputValue() });
+    }
+    // Add more conditions as needed
   };
 
   onMount(async () => {
@@ -65,10 +88,10 @@ Finish off by asking the user if they would either like to save this job role fo
   };
 
   return (
-    <div>
+    <div class="h-full flex flex-col">
       <h2 class="text-2xl font-bold mb-4 text-purple-600">Role Explorer</h2>
-      <div class="bg-white p-6 rounded-lg shadow-md h-96 overflow-y-auto mb-4">
-        <For each={conversationHistory().slice(1)}>
+      <div class="bg-white p-6 rounded-lg shadow-md flex-grow overflow-y-auto mb-4">
+        <For each={chatHistory()}>
           {(msg) => (
             <div class={`mb-4 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
               <div
@@ -93,7 +116,7 @@ Finish off by asking the user if they would either like to save this job role fo
           value={inputValue()}
           onInput={(e) => setInputValue(e.target.value)}
           class="flex-1 p-3 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent box-border"
-          placeholder="Type your message..."
+          placeholder="Type your response..."
         />
         <button
           type="submit"
