@@ -1,8 +1,8 @@
-import { createSignal, onMount, createEffect, onCleanup } from 'solid-js';
+import { createSignal, onMount, createEffect, onCleanup, Show } from 'solid-js';
 import { supabase } from './supabaseClient';
 import { Auth } from '@supabase/auth-ui-solid';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { Routes, Route, useNavigate, Navigate, Show } from '@solidjs/router';
+import { Routes, Route, useNavigate, Navigate } from '@solidjs/router';
 import DevelopMyVision from './pages/DevelopMyVision';
 import CloseMySkillGaps from './pages/CloseMySkillGaps';
 import ApplicationDevelopment from './pages/ApplicationDevelopment';
