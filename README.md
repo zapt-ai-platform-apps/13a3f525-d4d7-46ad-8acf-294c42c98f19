@@ -49,15 +49,15 @@ immerJ is a career development platform leveraging AI to guide users from role c
 ### 3. Close My Skill Gaps Hub
 
 - **Step 1:** The user views a list of competencies to focus on.
-- **Step 2:** The platform provides relevant courses (from Udemy and Coursera), apprenticeships, internships, and placements with hyperlinks.
+- **Step 2:** The platform provides relevant courses from Udemy and Coursera, apprenticeships, internships, and placements with hyperlinks.
 - **Step 3:** The user can select and enroll in courses or apply for opportunities to close skill gaps.
 
 ### 4. Application Development Hub
 
 - **Features:** 
-  - CV Development (Coming Soon)
-  - Interview Practice (Coming Soon)
-  - Apply for Roles
+  - **CV Development (Coming Soon)**
+  - **Interview Practice (Coming Soon)**
+  - **Apply for Roles**
 - **Step 1:** When selecting "Apply for Roles," the platform searches LinkedIn and other job sites for suitable roles based on the user's saved preferences.
 - **Step 2:** Roles are displayed with hyperlinks, allowing the user to apply directly.
 
