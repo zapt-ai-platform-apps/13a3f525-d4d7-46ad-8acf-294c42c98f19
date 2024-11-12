@@ -3,15 +3,25 @@ import { createEvent } from '../../supabaseClient';
 
 function ImmersiveDayInTheLife(props) {
   const { user, progress, setProgress } = props;
-  const [conversation, setConversation] = createSignal([]);
   const [inputValue, setInputValue] = createSignal('');
   const [loading, setLoading] = createSignal(false);
+  const [chatHistory, setChatHistory] = createSignal([]);
 
   const roleTitle = progress().preferredRoleTitle || 'your selected role';
 
   const initialPrompt = `You are an AI career coach named immerJ, providing the user with an immersive, descriptive experience of a day in the life of a ${roleTitle}. Guide the user through interactive tasks during the day simulation. After each activity, provide feedback focusing on areas for improvement. At the end, offer an overall review of the user's performance. Engage interactively by asking questions one at a time and waiting for the user's response before proceeding.`;
 
-  const [chatHistory, setChatHistory] = createSignal([]);
+  const buildPrompt = () => {
+    let prompt = initialPrompt + '\n\n';
+    chatHistory().forEach((msg) => {
+      if (msg.role === 'user') {
+        prompt += `User: ${msg.content}\n`;
+      } else if (msg.role === 'assistant') {
+        prompt += `Assistant: ${msg.content}\n`;
+      }
+    });
+    return prompt;
+  };
 
   const sendMessage = async (message) => {
     setLoading(true);
@@ -19,9 +29,9 @@ function ImmersiveDayInTheLife(props) {
     setChatHistory(updatedChatHistory);
 
     try {
+      const prompt = buildPrompt();
       const response = await createEvent('chatgpt_request', {
-        prompt: initialPrompt,
-        conversation: updatedChatHistory,
+        prompt,
         response_type: 'text',
       });
       setChatHistory([...updatedChatHistory, { role: 'assistant', content: response }]);

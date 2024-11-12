@@ -3,15 +3,25 @@ import { createEvent } from '../../supabaseClient';
 
 function IdentifyMySkillGaps(props) {
   const { user, progress, setProgress } = props;
-  const [conversation, setConversation] = createSignal([]);
   const [inputValue, setInputValue] = createSignal('');
   const [loading, setLoading] = createSignal(false);
+  const [chatHistory, setChatHistory] = createSignal([]);
 
   const roleTitle = progress().preferredRoleTitle || 'your selected role';
 
   const initialPrompt = `You are an AI career coach named immerJ, helping the user identify skill gaps for ${roleTitle}. Provide the competencies required for the role and present challenging tasks related to each competency. After each task, offer hints and feedback. At the end, review the user's strengths and areas for improvement. Engage interactively by asking questions one at a time and waiting for the user's response before proceeding.`;
 
-  const [chatHistory, setChatHistory] = createSignal([]);
+  const buildPrompt = () => {
+    let prompt = initialPrompt + '\n\n';
+    chatHistory().forEach((msg) => {
+      if (msg.role === 'user') {
+        prompt += `User: ${msg.content}\n`;
+      } else if (msg.role === 'assistant') {
+        prompt += `Assistant: ${msg.content}\n`;
+      }
+    });
+    return prompt;
+  };
 
   const sendMessage = async (message) => {
     setLoading(true);
@@ -19,9 +29,9 @@ function IdentifyMySkillGaps(props) {
     setChatHistory(updatedChatHistory);
 
     try {
+      const prompt = buildPrompt();
       const response = await createEvent('chatgpt_request', {
-        prompt: initialPrompt,
-        conversation: updatedChatHistory,
+        prompt,
         response_type: 'text',
       });
       setChatHistory([...updatedChatHistory, { role: 'assistant', content: response }]);

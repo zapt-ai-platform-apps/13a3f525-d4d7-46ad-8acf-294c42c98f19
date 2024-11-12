@@ -3,13 +3,23 @@ import { createEvent } from '../../supabaseClient';
 
 function FindMyWorkEnvironment(props) {
   const { user, progress, setProgress } = props;
-  const [conversation, setConversation] = createSignal([]);
   const [inputValue, setInputValue] = createSignal('');
   const [loading, setLoading] = createSignal(false);
+  const [chatHistory, setChatHistory] = createSignal([]);
 
   const initialPrompt = `You are an AI career coach named immerJ, assisting the user in finding their ideal work environment. Engage the user by asking questions about their personal interests, work-life balance preferences, job security concerns, career growth ambitions, and desired work culture. Ask each question one at a time and wait for the user's response before proceeding. Once all information is gathered, summarize the findings and present potential jobs that match the user's preferences. Encourage the user to select one of the options for further exploration.`;
 
-  const [chatHistory, setChatHistory] = createSignal([]);
+  const buildPrompt = () => {
+    let prompt = initialPrompt + '\n\n';
+    chatHistory().forEach((msg) => {
+      if (msg.role === 'user') {
+        prompt += `User: ${msg.content}\n`;
+      } else if (msg.role === 'assistant') {
+        prompt += `Assistant: ${msg.content}\n`;
+      }
+    });
+    return prompt;
+  };
 
   const sendMessage = async (message) => {
     setLoading(true);
@@ -17,9 +27,9 @@ function FindMyWorkEnvironment(props) {
     setChatHistory(updatedChatHistory);
 
     try {
+      const prompt = buildPrompt();
       const response = await createEvent('chatgpt_request', {
-        prompt: initialPrompt,
-        conversation: updatedChatHistory,
+        prompt,
         response_type: 'text',
       });
       setChatHistory([...updatedChatHistory, { role: 'assistant', content: response }]);

@@ -41,19 +41,19 @@ This hub guides the user through a series of modules to help them explore and re
 
 - **Step 1:** The AI helps the user consider factors such as personal interests, work-life balance, job security, career growth, and work culture.
 - **Step 2:** The AI asks interactive questions for each theme to identify the user's exact preferences.
-- **Step 3:** Based on the insights, the AI summarizes findings and presents 5 potential jobs matching the user's preferences.
+- **Step 3:** Based on the insights, the AI summarizes findings and presents potential jobs matching the user's preferences.
 - **Step 4:** The user selects one of the options for further exploration.
 
 **3. Identify My Skill Gaps**
 
 - **Step 1:** The AI highlights the competencies required for the selected role.
-- **Step 2:** The user is presented with 3 challenging tasks related to the role.
+- **Step 2:** The user is presented with challenging tasks related to each competency.
 - **Step 3:** The user attempts each challenge, receiving hints and feedback as needed.
 - **Step 4:** After completing the challenges, the AI reviews strengths and areas for improvement.
 
 **4. Immersive Day-in-the-Life**
 
-- **Step 1:** The AI provides an immersive, descriptive experience of a day in the life of the selected role within the specified sector and organization type.
+- **Step 1:** The AI provides an immersive, descriptive experience of a day in the life of the selected role.
 - **Step 2:** The user participates in interactive tasks throughout the day simulation.
 - **Step 3:** Feedback is provided after each activity, focusing on areas to improve.
 - **Step 4:** At the end of the day, the AI offers an overall review of the user's performance.
