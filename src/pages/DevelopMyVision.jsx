@@ -7,18 +7,12 @@ import ImmersiveDayInTheLife from './DevelopMyVision/ImmersiveDayInTheLife';
 import { createSignal, onMount } from 'solid-js';
 
 function DevelopMyVision(props) {
-  const { user } = props;
+  const { user, handleSignOut } = props;
   const navigate = useNavigate();
 
   const [progress, setProgress] = createSignal({
     preferredRoleTitle: '',
-    academicYear: '',
-    subjectsTaken: '',
-    country: '',
-    sector: '',
-    detailedPreferredRoleTitle: '',
-    organisationType: '',
-    focusCompetencies: [],
+    // other progress fields
   });
 
   onMount(() => {
@@ -29,7 +23,7 @@ function DevelopMyVision(props) {
 
   return (
     <div class="min-h-screen flex flex-col">
-      <Header />
+      <Header user={user} handleSignOut={handleSignOut} />
       <main class="flex-grow container mx-auto px-4 py-8 h-full">
         <h2 class="text-3xl font-bold mb-6 text-purple-600">Develop My Vision</h2>
         <Routes>

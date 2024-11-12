@@ -1,6 +1,8 @@
 import { A } from '@solidjs/router';
 
-function Header() {
+function Header(props) {
+  const { user, handleSignOut } = props;
+
   return (
     <header class="bg-white shadow-md">
       <div class="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -12,7 +14,7 @@ function Header() {
           />
           <h1 class="text-2xl font-bold text-purple-600">immerJ</h1>
         </div>
-        <nav class="space-x-6">
+        <nav class="space-x-6 flex items-center">
           <A href="/" class="text-gray-700 hover:text-purple-600 cursor-pointer">
             Home
           </A>
@@ -25,6 +27,14 @@ function Header() {
           <A href="/application-development" class="text-gray-700 hover:text-purple-600 cursor-pointer">
             Application Development
           </A>
+          {user && (
+            <button
+              class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
+              onClick={handleSignOut}
+            >
+              Log Out
+            </button>
+          )}
         </nav>
       </div>
     </header>

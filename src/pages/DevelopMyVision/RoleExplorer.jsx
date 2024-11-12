@@ -4,7 +4,9 @@ import { useNavigate } from '@solidjs/router';
 
 function RoleExplorer(props) {
   const { user, progress, setProgress } = props;
-  const [chatMessages, setChatMessages] = createSignal([]);
+  const [conversationHistory, setConversationHistory] = createSignal([
+    { role: 'system', content: initialPrompt },
+  ]);
   const [inputValue, setInputValue] = createSignal('');
   const [loading, setLoading] = createSignal(false);
   const navigate = useNavigate();
@@ -32,20 +34,17 @@ If the users preferred role is vocational please offer the user relevant courses
 
 Finish off by asking the user if they would either like to save this job role for further exploration later, or explore another role. If they select another role, please offer them another 5 suitable career options. Then follow the same structure as above.`;
 
-  const [conversation, setConversation] = createSignal([]);
-
   const sendMessage = async (message) => {
     setLoading(true);
-    const updatedConversation = [...conversation(), { role: 'user', content: message }];
-    setConversation(updatedConversation);
+    const updatedConversation = [...conversationHistory(), { role: 'user', content: message }];
+    setConversationHistory(updatedConversation);
 
     try {
       const response = await createEvent('chatgpt_request', {
-        prompt: initialPrompt,
-        conversation: updatedConversation,
+        messages: updatedConversation,
         response_type: 'text',
       });
-      setConversation([...updatedConversation, { role: 'assistant', content: response }]);
+      setConversationHistory([...updatedConversation, { role: 'assistant', content: response }]);
     } catch (error) {
       console.error('Error during ChatGPT request:', error);
     } finally {
@@ -68,7 +67,7 @@ Finish off by asking the user if they would either like to save this job role fo
     <div>
       <h2 class="text-2xl font-bold mb-4 text-purple-600">Role Explorer</h2>
       <div class="bg-white p-6 rounded-lg shadow-md h-96 overflow-y-auto mb-4">
-        <For each={conversation()}>
+        <For each={conversationHistory().slice(1)}>
           {(msg) => (
             <div class={`mb-4 ${msg.role === 'user' ? 'text-right' : 'text-left'}`}>
               <div class={`inline-block px-4 py-2 rounded-lg ${msg.role === 'user' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-800'}`}>

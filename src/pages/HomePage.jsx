@@ -3,7 +3,7 @@ import { Show } from 'solid-js';
 import { useNavigate } from '@solidjs/router';
 
 function HomePage(props) {
-  const { user } = props;
+  const { user, handleSignOut } = props;
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
@@ -12,7 +12,7 @@ function HomePage(props) {
 
   return (
     <div class="h-full flex flex-col">
-      <Header />
+      <Header user={user} handleSignOut={handleSignOut} />
       <main class="flex-grow container mx-auto px-4 py-8">
         <div class="text-center">
           <h2 class="text-4xl font-bold mb-4 text-purple-600">Welcome to immerJ</h2>
