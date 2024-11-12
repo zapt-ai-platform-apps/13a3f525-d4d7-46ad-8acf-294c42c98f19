@@ -3,12 +3,10 @@ import App from './App';
 import { Router } from '@solidjs/router';
 import './index.css';
 import * as Sentry from '@sentry/browser';
-import { BrowserTracing } from '@sentry/browser';
 
 Sentry.init({
   dsn: import.meta.env.VITE_PUBLIC_SENTRY_DSN,
   environment: import.meta.env.VITE_PUBLIC_APP_ENV,
-  integrations: [new BrowserTracing()],
 });
 
 Sentry.configureScope((scope) => {
@@ -29,8 +27,11 @@ script.setAttribute('src', 'https://progressier.app/z8yY3IKmfpDIw3mSncPh/script.
 script.setAttribute('defer', 'true');
 document.querySelector('head').appendChild(script);
 
-render(() => (
-  <Router>
-    <App />
-  </Router>
-), document.getElementById('root'));
+render(
+  () => (
+    <Router>
+      <App />
+    </Router>
+  ),
+  document.getElementById('root')
+);
