@@ -25,9 +25,9 @@ function HomePage(props) {
               Application Development
             </A>
           </nav>
-          <Show when={!user}>
+          <Show when={!user()}>
             <p class="text-gray-700">
-              Please <a href="/login" class="text-blue-500 hover:underline cursor-pointer">sign in</a> to get started.
+              Please <A href="/login" class="text-blue-500 hover:underline cursor-pointer">sign in</A> to get started.
             </p>
           </Show>
         </div>

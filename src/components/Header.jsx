@@ -24,7 +24,7 @@ function Header(props) {
           <A href="/application-development" class="text-gray-700 hover:text-purple-600 cursor-pointer">
             Application Development
           </A>
-          {user && (
+          {user() && (
             <button
               class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
               onClick={handleSignOut}

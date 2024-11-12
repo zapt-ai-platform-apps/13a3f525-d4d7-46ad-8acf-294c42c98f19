@@ -61,7 +61,7 @@ This hub guides the user through a series of modules to help them explore and re
 ### 3. Close My Skill Gaps Hub
 
 - **Step 1:** The user views a list of competencies to focus on, based on previous modules.
-- **Step 2:** The platform provides relevant courses from Udemy and Coursera to help the user develop these skills.
+- **Step 2:** The platform provides curated placeholder courses from Udemy and Coursera to help the user develop these skills.
 - **Step 3:** The user can select and explore courses with direct links to close skill gaps.
 
 ### 4. Application Development Hub
@@ -70,7 +70,7 @@ This hub guides the user through a series of modules to help them explore and re
   - **CV Development (Coming Soon)**
   - **Interview Practice (Coming Soon)**
   - **Apply for Roles**
-- **Step 1:** When selecting "Apply for Roles," the platform searches external job sites like LinkedIn for suitable roles based on the user's saved preferences.
+- **Step 1:** When selecting "Apply for Roles," the platform displays placeholder job listings relevant to the user's preferences.
 - **Step 2:** Jobs are displayed with company names and links, allowing the user to explore potential opportunities.
 
 ## Additional Features
@@ -81,8 +81,7 @@ This hub guides the user through a series of modules to help them explore and re
 ## External APIs Used
 
 - **ZAPT AI Services:** Used for AI-powered career coaching and interactive chat modules through the `createEvent` function.
-- **Udemy and Coursera APIs:** Used to fetch relevant courses to help users close their skill gaps.
-- **Job Search APIs (e.g., LinkedIn):** Used to search and display relevant job listings based on user preferences.
+- **Note:** In the current version, placeholder data is used for courses and job listings. External APIs for Udemy, Coursera, and job search platforms will be integrated in future updates.
 
 ---
 

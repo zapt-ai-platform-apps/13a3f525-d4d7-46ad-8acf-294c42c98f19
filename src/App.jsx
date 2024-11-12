@@ -50,11 +50,11 @@ function App() {
   return (
     <div class="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100">
       <Routes>
-        <Route path="/" element={<HomePage user={user()} handleSignOut={handleSignOut} />} />
+        <Route path="/" element={<HomePage user={user} handleSignOut={handleSignOut} />} />
         <Route path="/login" element={<AuthPage />} />
-        <Route path="/develop-my-vision/*" element={<DevelopMyVision user={user()} handleSignOut={handleSignOut} />} />
-        <Route path="/close-my-skill-gaps" element={<CloseMySkillGaps user={user()} handleSignOut={handleSignOut} />} />
-        <Route path="/application-development" element={<ApplicationDevelopment user={user()} handleSignOut={handleSignOut} />} />
+        <Route path="/develop-my-vision/*" element={<DevelopMyVision user={user} handleSignOut={handleSignOut} />} />
+        <Route path="/close-my-skill-gaps" element={<CloseMySkillGaps user={user} handleSignOut={handleSignOut} />} />
+        <Route path="/application-development" element={<ApplicationDevelopment user={user} handleSignOut={handleSignOut} />} />
       </Routes>
     </div>
   );

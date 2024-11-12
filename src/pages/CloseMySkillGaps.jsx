@@ -1,6 +1,5 @@
 import Header from '../components/Header';
-import { createSignal, For, onMount } from 'solid-js';
-import { createEvent } from '../supabaseClient';
+import { createSignal, For, onMount, Show } from 'solid-js';
 
 function CloseMySkillGaps(props) {
   const { user, handleSignOut } = props;
@@ -9,26 +8,25 @@ function CloseMySkillGaps(props) {
 
   const fetchCompetencies = async () => {
     setLoading(true);
-    // Fetch competencies from previous modules or user profile
-    // Here we use placeholders
+    // Placeholder data without backend calls
     const userCompetencies = ['Communication Skills', 'Problem-Solving', 'Teamwork'];
-    const courses = {};
 
-    for (const competency of userCompetencies) {
-      try {
-        const response = await createEvent('chatgpt_request', {
-          prompt: `Find 2 online courses from Udemy and Coursera to improve ${competency}. Provide the course title, platform, and a link.`,
-          response_type: 'json',
-        });
-        courses[competency] = response;
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-      }
-    }
+    const placeholderCourses = [
+      {
+        title: 'Effective Communication: Mastering the Art',
+        platform: 'Udemy',
+        link: '#',
+      },
+      {
+        title: 'Communication Skills for the Workplace',
+        platform: 'Coursera',
+        link: '#',
+      },
+    ];
 
     const competenciesData = userCompetencies.map((comp) => ({
       name: comp,
-      courses: courses[comp] || [],
+      courses: placeholderCourses,
     }));
 
     setCompetencies(competenciesData);
