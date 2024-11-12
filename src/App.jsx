@@ -2,7 +2,7 @@ import { createSignal, onMount, createEffect, onCleanup } from 'solid-js';
 import { supabase } from './supabaseClient';
 import { Auth } from '@supabase/auth-ui-solid';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
-import { Routes, Route, useNavigate } from '@solidjs/router';
+import { Routes, Route, useNavigate, Navigate } from '@solidjs/router';
 import HomePage from './pages/HomePage';
 import DevelopMyVision from './pages/DevelopMyVision';
 import CloseMySkillGaps from './pages/CloseMySkillGaps';
@@ -11,14 +11,11 @@ import './App.css';
 
 function App() {
   const [user, setUser] = createSignal(null);
-  const navigate = useNavigate();
 
   const checkUserSignedIn = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       setUser(user);
-    } else {
-      navigate('/login');
     }
   };
 
@@ -32,7 +29,6 @@ function App() {
         setUser(session.user);
       } else {
         setUser(null);
-        navigate('/login');
       }
     });
 
@@ -44,7 +40,6 @@ function App() {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     setUser(null);
-    navigate('/login');
   };
 
   return (
@@ -52,9 +47,30 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage user={user} handleSignOut={handleSignOut} />} />
         <Route path="/login" element={<AuthPage />} />
-        <Route path="/develop-my-vision/*" element={<DevelopMyVision user={user} handleSignOut={handleSignOut} />} />
-        <Route path="/close-my-skill-gaps" element={<CloseMySkillGaps user={user} handleSignOut={handleSignOut} />} />
-        <Route path="/application-development" element={<ApplicationDevelopment user={user} handleSignOut={handleSignOut} />} />
+        <Route
+          path="/develop-my-vision/*"
+          element={
+            <Show when={user()} fallback={<Navigate href="/login" />}>
+              <DevelopMyVision user={user} handleSignOut={handleSignOut} />
+            </Show>
+          }
+        />
+        <Route
+          path="/close-my-skill-gaps"
+          element={
+            <Show when={user()} fallback={<Navigate href="/login" />}>
+              <CloseMySkillGaps user={user} handleSignOut={handleSignOut} />
+            </Show>
+          }
+        />
+        <Route
+          path="/application-development"
+          element={
+            <Show when={user()} fallback={<Navigate href="/login" />}>
+              <ApplicationDevelopment user={user} handleSignOut={handleSignOut} />
+            </Show>
+          }
+        />
       </Routes>
     </div>
   );

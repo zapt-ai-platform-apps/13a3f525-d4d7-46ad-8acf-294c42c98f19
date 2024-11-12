@@ -22,20 +22,13 @@ function HomePage(props) {
           <p class="text-xl mb-8 max-w-2xl">
             A career development platform leveraging AI to take you from role conception to working your dream job through an immersive &amp; engaging journey.
           </p>
-          <div class="space-x-4 flex flex-wrap justify-center">
-            <A href="/develop-my-vision" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300 ease-in-out cursor-pointer m-2">
-              Develop My Vision
-            </A>
-            <A href="/close-my-skill-gaps" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300 ease-in-out cursor-pointer m-2">
-              Close My Skill Gaps
-            </A>
-            <A href="/application-development" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-full shadow-md transition duration-300 ease-in-out cursor-pointer m-2">
-              Application Development
-            </A>
-          </div>
           <Show when={!user()}>
             <p class="mt-6 text-lg">
-              Please <A href="/login" class="text-yellow-300 hover:underline cursor-pointer">sign in</A> to get started.
+              Please{' '}
+              <A href="/login" class="text-yellow-300 hover:underline cursor-pointer">
+                sign in
+              </A>{' '}
+              to get started.
             </p>
           </Show>
         </div>
