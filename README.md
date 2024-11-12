@@ -33,13 +33,13 @@ immerJ is a career development platform leveraging AI to guide users from role c
 
 - **Step 1:** The AI helps the user consider factors such as personal interests, work-life balance, job security, career growth, and work culture.
 - **Step 2:** The AI asks interactive questions for each theme to identify the user's exact preferences.
-- **Step 3:** Based on the insights, the AI summarizes findings and presents potential jobs that match the user's preferences.
+- **Step 3:** Based on the insights, the AI summarizes findings and presents 5 potential jobs that match the user's preferences.
 - **Step 4:** The user selects one of the options for further exploration.
 
 **3. Identify My Skill Gaps**
 
 - **Step 1:** The AI highlights the competencies required for the selected role.
-- **Step 2:** The user is presented with challenging tasks related to the role.
+- **Step 2:** The user is presented with 3 challenging tasks related to the role.
 - **Step 3:** The user attempts each challenge, receiving hints and feedback as needed.
 - **Step 4:** After completing the challenges, the AI reviews strengths and areas for improvement.
 
@@ -53,8 +53,8 @@ immerJ is a career development platform leveraging AI to guide users from role c
 ### 3. Close My Skill Gaps Hub
 
 - **Step 1:** The user views a list of competencies to focus on.
-- **Step 2:** The platform provides placeholder courses and resources to help the user develop these skills.
-- **Step 3:** The user can select and explore courses or opportunities to close skill gaps.
+- **Step 2:** The platform provides relevant courses from Udemy and Coursera to help the user develop these skills.
+- **Step 3:** The user can select and explore courses with direct links to close skill gaps.
 
 ### 4. Application Development Hub
 
@@ -62,14 +62,20 @@ immerJ is a career development platform leveraging AI to guide users from role c
   - **CV Development (Coming Soon)**
   - **Interview Practice (Coming Soon)**
   - **Apply for Roles**
-- **Step 1:** When selecting "Apply for Roles," the platform displays placeholder job listings suitable for the user's saved preferences.
-- **Step 2:** Jobs are displayed with company names and placeholder links, allowing the user to explore potential opportunities.
+- **Step 1:** When selecting "Apply for Roles," the platform searches external job sites like LinkedIn for suitable roles based on the user's saved preferences.
+- **Step 2:** Jobs are displayed with company names and links, allowing the user to explore potential opportunities.
 
 ## Additional Features
 
 - **Logout Functionality:** Users can securely log out of their accounts using the "Log Out" button available in the navigation header.
 - **Responsive Design:** The platform is designed to be responsive and user-friendly across various devices and screen sizes.
 
+## External APIs Used
+
+- **ZAPT AI Services:** Used for AI-powered career coaching and interactive chat modules through the `createEvent` function.
+- **Udemy and Coursera APIs:** Used to fetch relevant courses to help users close their skill gaps.
+- **Job Search APIs (e.g., LinkedIn):** Used to search and display relevant job listings based on user preferences.
+
 ---
 
-**Note:** Some features like searching external job sites or courses are represented with placeholder data in this version. The actual integration with external APIs (e.g., Udemy, Coursera, LinkedIn) is planned for future updates.
+**Note:** Some features like CV Development and Interview Practice are planned for future updates.

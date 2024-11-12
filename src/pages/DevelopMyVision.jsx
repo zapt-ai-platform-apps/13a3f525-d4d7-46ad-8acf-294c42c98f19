@@ -12,7 +12,13 @@ function DevelopMyVision(props) {
 
   const [progress, setProgress] = createSignal({
     preferredRoleTitle: '',
-    // other progress fields
+    academicYear: '',
+    subjectsTaken: '',
+    country: '',
+    sector: '',
+    detailedPreferredRoleTitle: '',
+    organisationType: '',
+    focusCompetencies: [],
   });
 
   onMount(() => {
