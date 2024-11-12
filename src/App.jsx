@@ -1,11 +1,10 @@
 import { createSignal, onMount, createEffect, onCleanup, Show } from 'solid-js';
 import { supabase } from './supabaseClient';
-import { Auth } from '@supabase/auth-ui-solid';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { Routes, Route, useNavigate, Navigate } from '@solidjs/router';
 import DevelopMyVision from './pages/DevelopMyVision';
 import CloseMySkillGaps from './pages/CloseMySkillGaps';
 import ApplicationDevelopment from './pages/ApplicationDevelopment';
+import HomePage from './pages/HomePage';
 import './App.css';
 
 function App() {
@@ -30,7 +29,7 @@ function App() {
         navigate('/develop-my-vision');
       } else {
         setUser(null);
-        navigate('/login');
+        navigate('/');
       }
     });
 
@@ -42,6 +41,7 @@ function App() {
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     setUser(null);
+    navigate('/');
   };
 
   return (
@@ -49,24 +49,12 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={
-            <Show when={!user()} fallback={<Navigate href="/develop-my-vision" />}>
-              <AuthPage />
-            </Show>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <Show when={!user()} fallback={<Navigate href="/develop-my-vision" />}>
-              <AuthPage />
-            </Show>
-          }
+          element={<HomePage user={user} handleSignOut={handleSignOut} />}
         />
         <Route
           path="/develop-my-vision/*"
           element={
-            <Show when={user()} fallback={<Navigate href="/login" />}>
+            <Show when={user()} fallback={<Navigate href="/" />}>
               <DevelopMyVision user={user} handleSignOut={handleSignOut} />
             </Show>
           }
@@ -74,7 +62,7 @@ function App() {
         <Route
           path="/close-my-skill-gaps"
           element={
-            <Show when={user()} fallback={<Navigate href="/login" />}>
+            <Show when={user()} fallback={<Navigate href="/" />}>
               <CloseMySkillGaps user={user} handleSignOut={handleSignOut} />
             </Show>
           }
@@ -82,38 +70,12 @@ function App() {
         <Route
           path="/application-development"
           element={
-            <Show when={user()} fallback={<Navigate href="/login" />}>
+            <Show when={user()} fallback={<Navigate href="/" />}>
               <ApplicationDevelopment user={user} handleSignOut={handleSignOut} />
             </Show>
           }
         />
       </Routes>
-    </div>
-  );
-}
-
-function AuthPage() {
-  return (
-    <div class="flex items-center justify-center min-h-screen">
-      <div class="w-full max-w-md p-8 bg-white rounded-xl shadow-lg">
-        <h2 class="text-3xl font-bold mb-6 text-center text-purple-600">Sign in with ZAPT</h2>
-        <a
-          href="https://www.zapt.ai"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-blue-500 hover:underline mb-6 block text-center"
-        >
-          Learn more about ZAPT
-        </a>
-        <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          providers={['google', 'facebook', 'apple']}
-          magicLink={true}
-          showLinks={false}
-          view="magic_link"
-        />
-      </div>
     </div>
   );
 }

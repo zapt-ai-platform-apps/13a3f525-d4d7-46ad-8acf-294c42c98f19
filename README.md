@@ -4,25 +4,27 @@
 
 immerJ is a career development platform leveraging AI to guide users from role conception to securing their dream job through an immersive and engaging journey. The platform is designed to assist secondary school students in identifying suitable careers tailored to their interests and qualifications.
 
-After signing in, users are directed straight to the "Develop My Vision" hub, embarking on a personalized journey toward their dream career.
+On the landing page, users are greeted with an inspiring background image, the immerJ logo, and the company's vision statement. Users can explore the platform and choose to sign in to access personalized features.
 
 ## User Journeys
 
 ### 1. Landing and Authentication
 
-1. **Landing:** New users visit the platform and are greeted with an inspiring background image, the immerJ logo, and the company's vision statement.
+1. **Landing Page:** New users visit the platform and are greeted with an inspiring background image, the immerJ logo, and the company's vision statement.
 
    - **Company Vision:** "A career development platform leveraging AI to take users from role conception to working their dream job through an immersive & engaging journey."
 
-2. **Authentication:**
+2. **Exploration:** Users can explore the platform's offerings and learn more about the services provided.
 
-   - **Sign In Prompt:** Users are prompted to sign in to access the platform's features.
+3. **Authentication:**
 
-   - **Sign In with ZAPT:** Upon clicking "Sign In," users are directed to the sign-in page, featuring options to sign in with ZAPT using social providers like Google, Facebook, or Apple.
+   - **Sign In Prompt:** Users who wish to access personalized features can click the "Sign In" button available on the landing page.
+   
+   - **Sign In Modal:** Upon clicking "Sign In," an authentication form appears without leaving the page, featuring options to sign in with ZAPT using social providers like Google, Facebook, or Apple.
 
-3. **Post-Login Redirection:**
+4. **Post-Login Redirection:**
 
-   - **Direct Access to Develop My Vision:** Upon successful sign-in, users are automatically redirected to the "Develop My Vision" hub, bypassing the landing page on subsequent visits.
+   - **Direct Access to Develop My Vision:** Upon successful sign-in, users are automatically redirected to the "Develop My Vision" hub for a personalized career development experience.
 
 ### 2. Develop My Vision Hub
 
