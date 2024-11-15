@@ -7,11 +7,13 @@ import * as Sentry from '@sentry/browser';
 Sentry.init({
   dsn: import.meta.env.VITE_PUBLIC_SENTRY_DSN,
   environment: import.meta.env.VITE_PUBLIC_APP_ENV,
-});
-
-Sentry.configureScope((scope) => {
-  scope.setTag('type', 'frontend');
-  scope.setTag('projectId', import.meta.env.VITE_PUBLIC_APP_ID);
+  integrations: [Sentry.BrowserTracing],
+  initialScope: {
+    tags: {
+      type: 'frontend',
+      projectId: import.meta.env.VITE_PUBLIC_APP_ID,
+    },
+  },
 });
 
 // Add PWA support

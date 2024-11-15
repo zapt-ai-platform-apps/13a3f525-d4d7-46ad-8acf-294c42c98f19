@@ -22,9 +22,9 @@ On the landing page, users are greeted with an inspiring background image, the i
    
    - **Sign In Modal:** Upon clicking "Sign In," an authentication form appears without leaving the page, featuring options to sign in with ZAPT using social providers like Google, Facebook, or Apple.
 
-4. **Post-Login Redirection:**
+4. **Post-Login Experience:**
 
-   - **Direct Access to Develop My Vision:** Upon successful sign-in, users are automatically redirected to the "Develop My Vision" hub for a personalized career development experience.
+   - **Staying on the Same Page:** When users return to the app after opening a new tab or session, they remain on the same page they left, ensuring a seamless experience.
 
 ### 2. Develop My Vision Hub
 
@@ -76,12 +76,22 @@ This hub guides the user through a series of modules to help them explore and re
 
 ## Additional Features
 
+- **Error Handling with Sentry:** All errors on both the front-end and back-end are logged using Sentry, ensuring robust error tracking and easier debugging.
+
 - **Responsive Design:** The platform features a responsive design that utilizes the entire screen, providing an immersive experience across various devices and screen sizes.
+
 - **Data Persistence:** Key outputs from the user's interactions are saved and displayed in the "My Profile" page for future reference.
 
 ## External APIs Used
 
 - **ZAPT AI Services:** Used for AI-powered career coaching and interactive chat modules through the `createEvent` function.
+
+## Environment Variables
+
+- **VITE_PUBLIC_APP_ID:** Application ID for initializing ZAPT and Progressier.
+- **VITE_PUBLIC_SENTRY_DSN:** DSN for Sentry error logging.
+- **VITE_PUBLIC_APP_ENV:** Application environment (e.g., production, development).
+- **NEON_DB_URL:** Connection string for the Neon database.
 
 ---
 

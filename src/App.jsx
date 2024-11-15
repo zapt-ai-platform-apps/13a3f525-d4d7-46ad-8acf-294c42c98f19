@@ -1,6 +1,6 @@
 import { createSignal, onMount, createEffect, onCleanup, Show } from 'solid-js';
 import { supabase } from './supabaseClient';
-import { Routes, Route, useNavigate, Navigate } from '@solidjs/router';
+import { Routes, Route, useNavigate, Navigate, useLocation } from '@solidjs/router';
 import DevelopMyVision from './pages/DevelopMyVision';
 import CloseMySkillGaps from './pages/CloseMySkillGaps';
 import ApplicationDevelopment from './pages/ApplicationDevelopment';
@@ -11,6 +11,7 @@ import './App.css';
 function App() {
   const [user, setUser] = createSignal(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [progress, setProgress] = createSignal({
     preferredRoleTitle: '',
@@ -38,7 +39,9 @@ function App() {
     } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
         setUser(session.user);
-        navigate('/develop-my-vision');
+        if (location.pathname === '/') {
+          navigate('/develop-my-vision');
+        }
       } else {
         setUser(null);
         navigate('/');
@@ -74,7 +77,7 @@ function App() {
     }
   });
 
-  // Save progress when it changes
+  // Save progress when progress changes
   createEffect(() => {
     if (user()) {
       saveProgress();
