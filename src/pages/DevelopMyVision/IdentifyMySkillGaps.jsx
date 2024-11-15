@@ -1,5 +1,6 @@
 import { createSignal, onMount, Show, For } from 'solid-js';
 import { createEvent } from '../../supabaseClient';
+import { SolidMarkdown } from 'solid-markdown';
 
 function IdentifyMySkillGaps(props) {
   const { user, progress, setProgress } = props;
@@ -95,7 +96,11 @@ Please only provide the JSON object and nothing else.`;
                   msg.role === 'user' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-800'
                 }`}
               >
-                {msg.content}
+                {msg.role === 'assistant' ? (
+                  <SolidMarkdown>{msg.content}</SolidMarkdown>
+                ) : (
+                  msg.content
+                )}
               </div>
             </div>
           )}

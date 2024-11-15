@@ -77,13 +77,6 @@ function App() {
     }
   });
 
-  // Save progress when progress changes
-  createEffect(() => {
-    if (user()) {
-      saveProgress();
-    }
-  });
-
   const saveProgress = async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -99,6 +92,14 @@ function App() {
       console.error('Error saving progress:', error);
     }
   };
+
+  // Save progress when progress changes
+  createEffect(() => {
+    if (user()) {
+      progress(); // Ensure reactivity
+      saveProgress();
+    }
+  });
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
