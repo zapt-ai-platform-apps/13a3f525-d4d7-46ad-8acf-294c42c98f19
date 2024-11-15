@@ -5,11 +5,23 @@ import DevelopMyVision from './pages/DevelopMyVision';
 import CloseMySkillGaps from './pages/CloseMySkillGaps';
 import ApplicationDevelopment from './pages/ApplicationDevelopment';
 import HomePage from './pages/HomePage';
+import MyProfile from './pages/MyProfile';
 import './App.css';
 
 function App() {
   const [user, setUser] = createSignal(null);
   const navigate = useNavigate();
+
+  const [progress, setProgress] = createSignal({
+    preferredRoleTitle: '',
+    detailedPreferredRoleTitle: '',
+    academicYear: '',
+    subjectsTaken: '',
+    country: '',
+    sector: '',
+    organisationType: '',
+    focusCompetencies: [],
+  });
 
   const checkUserSignedIn = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -55,7 +67,7 @@ function App() {
           path="/develop-my-vision/*"
           element={
             <Show when={user()} fallback={<Navigate href="/" />}>
-              <DevelopMyVision user={user} handleSignOut={handleSignOut} />
+              <DevelopMyVision user={user} handleSignOut={handleSignOut} progress={progress} setProgress={setProgress} />
             </Show>
           }
         />
@@ -63,7 +75,7 @@ function App() {
           path="/close-my-skill-gaps"
           element={
             <Show when={user()} fallback={<Navigate href="/" />}>
-              <CloseMySkillGaps user={user} handleSignOut={handleSignOut} />
+              <CloseMySkillGaps user={user} handleSignOut={handleSignOut} progress={progress} />
             </Show>
           }
         />
@@ -71,7 +83,15 @@ function App() {
           path="/application-development"
           element={
             <Show when={user()} fallback={<Navigate href="/" />}>
-              <ApplicationDevelopment user={user} handleSignOut={handleSignOut} />
+              <ApplicationDevelopment user={user} handleSignOut={handleSignOut} progress={progress} />
+            </Show>
+          }
+        />
+        <Route
+          path="/my-profile"
+          element={
+            <Show when={user()} fallback={<Navigate href="/" />}>
+              <MyProfile user={user} handleSignOut={handleSignOut} progress={progress} />
             </Show>
           }
         />

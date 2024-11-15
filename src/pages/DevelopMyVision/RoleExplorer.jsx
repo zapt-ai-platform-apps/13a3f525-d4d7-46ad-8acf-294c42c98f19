@@ -51,7 +51,19 @@ Offer next steps of how to get into the role. Where university is required, plea
 
 If the user's preferred role is vocational, please offer the user relevant courses/apprenticeships again with hyperlinks to the websites which offer them.
 
-Finish by asking the user if they would like to save this job role for further exploration later, or explore another role. If they select another role, please offer them another 5 suitable career options, then follow the same structure as above.`;
+Finish by asking the user if they would like to save this job role for further exploration later, or explore another role. If they select another role, please offer them another 5 suitable career options, then follow the same structure as above.
+
+Once the user has confirmed their preferred role, please provide a summary of the following information in valid JSON format (without any additional text):
+
+{
+  "preferredRoleTitle": "the user's selected general role",
+  "detailedPreferredRoleTitle": "the user's selected detailed role, if any",
+  "academicYear": "the user's academic year",
+  "subjectsTaken": "the user's subjects taken",
+  "country": "the user's country"
+}
+
+Please only provide the JSON object and nothing else.`;
 
   const buildPrompt = () => {
     let prompt = initialPrompt + '\n\n';
@@ -76,6 +88,7 @@ Finish by asking the user if they would like to save this job role for further e
         prompt,
         response_type: 'text',
       });
+
       setChatHistory([...updatedChatHistory, { role: 'assistant', content: response }]);
 
       // Extract key information based on the assistant's message
@@ -87,11 +100,27 @@ Finish by asking the user if they would like to save this job role for further e
     }
   };
 
-  const extractData = (assistantMessage) => {
-    // Implement logic to extract data based on assistantMessage
-    // For example, detect when the assistant asks for the user's academic year
-    // and store it in progress and conversationData
-  };
+  function extractData(assistantMessage) {
+    // Try to parse JSON from the assistant's message
+    try {
+      const jsonStart = assistantMessage.indexOf('{');
+      if (jsonStart !== -1) {
+        const jsonString = assistantMessage.slice(jsonStart);
+        const data = JSON.parse(jsonString);
+        // Now update progress with the data
+        setProgress((prev) => ({
+          ...prev,
+          preferredRoleTitle: data.preferredRoleTitle || prev.preferredRoleTitle,
+          detailedPreferredRoleTitle: data.detailedPreferredRoleTitle || prev.detailedPreferredRoleTitle,
+          academicYear: data.academicYear || prev.academicYear,
+          subjectsTaken: data.subjectsTaken || prev.subjectsTaken,
+          country: data.country || prev.country,
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to parse JSON:', error);
+    }
+  }
 
   onMount(async () => {
     // Start the conversation with an initial greeting

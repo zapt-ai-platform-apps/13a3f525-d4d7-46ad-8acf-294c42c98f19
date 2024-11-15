@@ -9,7 +9,15 @@ function ImmersiveDayInTheLife(props) {
 
   const roleTitle = progress().preferredRoleTitle || 'your selected role';
 
-  const initialPrompt = `You are an AI career coach named immerJ, providing the user with an immersive, descriptive experience of a day in the life of a ${roleTitle}. Guide the user through interactive tasks during the day simulation. After each activity, provide feedback focusing on areas for improvement. At the end, offer an overall review of the user's performance. Engage interactively by asking questions one at a time and waiting for the user's response before proceeding.`;
+  const initialPrompt = `You are an AI career coach named immerJ, providing the user with an immersive, descriptive experience of a day in the life of a ${roleTitle}. Guide the user through interactive tasks during the day simulation. After each activity, provide feedback focusing on areas for improvement. At the end, offer an overall review of the user's performance. Engage interactively by asking questions one at a time and waiting for the user's response before proceeding.
+
+At the end, please provide a list of focus competencies for the user to develop, in valid JSON format as an array:
+
+{
+  "focusCompetencies": ["competency1", "competency2", ...]
+}
+
+Please only provide the JSON object and nothing else.`;
 
   const buildPrompt = () => {
     let prompt = initialPrompt + '\n\n';
@@ -35,6 +43,7 @@ function ImmersiveDayInTheLife(props) {
         response_type: 'text',
       });
       setChatHistory([...updatedChatHistory, { role: 'assistant', content: response }]);
+      extractData(response);
     } catch (error) {
       console.error('Error during ChatGPT request:', error);
     } finally {
@@ -42,7 +51,28 @@ function ImmersiveDayInTheLife(props) {
     }
   };
 
+  function extractData(assistantMessage) {
+    // Try to parse JSON from the assistant's message
+    try {
+      const jsonStart = assistantMessage.indexOf('{');
+      if (jsonStart !== -1) {
+        const jsonString = assistantMessage.slice(jsonStart);
+        const data = JSON.parse(jsonString);
+        setProgress((prev) => ({
+          ...prev,
+          focusCompetencies: data.focusCompetencies || prev.focusCompetencies,
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to parse JSON:', error);
+    }
+  }
+
   onMount(async () => {
+    if (!progress().preferredRoleTitle) {
+      alert('Please complete the Role Explorer module first.');
+      return;
+    }
     await sendMessage('');
   });
 

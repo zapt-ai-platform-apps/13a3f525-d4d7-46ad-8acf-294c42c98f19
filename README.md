@@ -32,34 +32,52 @@ This hub guides the user through a series of modules to help them explore and re
 
 **Modules:**
 
-- **Role Explorer:** Interactive chat to discover roles aligned with the user's interests.
+- **Role Explorer:** Interactive chat to discover roles aligned with the user's interests. The user responds to a series of questions, and the AI assistant helps them identify a preferred role. The system saves key outputs such as:
 
-- **Find My Work Environment:** Chat-based exploration of ideal work environments.
+  - Preferred Role Title
+  - Detailed Preferred Role Title
+  - Academic Year
+  - Subjects Taken
+  - Country
 
-- **Identify My Skill Gaps:** Interactive session to uncover areas for skill development.
+- **Find My Work Environment:** Chat-based exploration of ideal work environments. The assistant gathers information about the user's preferred sector and organization type. These outputs are saved for future use.
 
-- **Immersive Day-in-the-Life:** Simulated experience of a day in the preferred role.
+- **Identify My Skill Gaps:** Interactive session to uncover areas for skill development. The assistant identifies focus competencies for the user to develop, which are saved.
 
-### 3. Other Core Modules (Accessible After Login)
+- **Immersive Day-in-the-Life:** Simulated experience of a day in the preferred role. Additional focus competencies may be identified and saved.
 
-#### 3.1 Close My Skill Gaps Hub
+### 3. Viewing Saved Outputs
+
+- **My Profile Page:** Users can access a dedicated page where all their saved outputs are displayed. The preferred role title serves as the heading, and under it, all associated outputs are organized, including:
+
+  - Academic Year
+  - Subjects Taken
+  - Country
+  - Sector
+  - Organization Type
+  - Focus Competencies
+
+### 4. Other Core Modules (Accessible After Login)
+
+#### 4.1 Close My Skill Gaps Hub
 
 - **Skill Development:** Users can view competencies to focus on and are provided with curated courses to help develop these skills.
 
-#### 3.2 Application Development Hub
+#### 4.2 Application Development Hub
 
 - **Features:**
   - **CV Development (Coming Soon)**
   - **Interview Practice (Coming Soon)**
   - **Apply for Roles**
 
-### 4. Logout Functionality
+### 5. Logout Functionality
 
 - **Log Out Button:** Users who are signed in can securely log out of their accounts using the "Log Out" button available in the navigation header.
 
 ## Additional Features
 
 - **Responsive Design:** The platform features a responsive design that utilizes the entire screen, providing an immersive experience across various devices and screen sizes.
+- **Data Persistence:** Key outputs from the user's interactions are saved and displayed in the "My Profile" page for future reference.
 
 ## External APIs Used
 

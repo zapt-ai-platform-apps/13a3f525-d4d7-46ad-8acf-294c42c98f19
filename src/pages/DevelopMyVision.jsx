@@ -4,22 +4,10 @@ import RoleExplorer from './DevelopMyVision/RoleExplorer';
 import FindMyWorkEnvironment from './DevelopMyVision/FindMyWorkEnvironment';
 import IdentifyMySkillGaps from './DevelopMyVision/IdentifyMySkillGaps';
 import ImmersiveDayInTheLife from './DevelopMyVision/ImmersiveDayInTheLife';
-import { createSignal, onMount } from 'solid-js';
 
 function DevelopMyVision(props) {
-  const { user, handleSignOut } = props;
+  const { user, handleSignOut, progress, setProgress } = props;
   const navigate = useNavigate();
-
-  const [progress, setProgress] = createSignal({
-    preferredRoleTitle: '',
-    academicYear: '',
-    subjectsTaken: '',
-    country: '',
-    sector: '',
-    detailedPreferredRoleTitle: '',
-    organisationType: '',
-    focusCompetencies: [],
-  });
 
   onMount(() => {
     if (!user()) {

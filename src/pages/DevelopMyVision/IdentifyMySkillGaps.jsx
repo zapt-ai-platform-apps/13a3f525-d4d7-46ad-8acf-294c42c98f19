@@ -9,7 +9,15 @@ function IdentifyMySkillGaps(props) {
 
   const roleTitle = progress().preferredRoleTitle || 'your selected role';
 
-  const initialPrompt = `You are an AI career coach named immerJ, helping the user identify skill gaps for ${roleTitle}. Provide the competencies required for the role and present challenging tasks related to each competency. After each task, offer hints and feedback. At the end, review the user's strengths and areas for improvement. Engage interactively by asking questions one at a time and waiting for the user's response before proceeding.`;
+  const initialPrompt = `You are an AI career coach named immerJ, helping the user identify skill gaps for ${roleTitle}. Provide the competencies required for the role and present challenging tasks related to each competency. After each task, offer hints and feedback. At the end, review the user's strengths and areas for improvement. Engage interactively by asking questions one at a time and waiting for the user's response before proceeding.
+
+At the end, please provide a list of focus competencies for the user to develop, in valid JSON format as an array:
+
+{
+  "focusCompetencies": ["competency1", "competency2", ...]
+}
+
+Please only provide the JSON object and nothing else.`;
 
   const buildPrompt = () => {
     let prompt = initialPrompt + '\n\n';
@@ -35,6 +43,7 @@ function IdentifyMySkillGaps(props) {
         response_type: 'text',
       });
       setChatHistory([...updatedChatHistory, { role: 'assistant', content: response }]);
+      extractData(response);
     } catch (error) {
       console.error('Error during ChatGPT request:', error);
     } finally {
@@ -42,7 +51,28 @@ function IdentifyMySkillGaps(props) {
     }
   };
 
+  function extractData(assistantMessage) {
+    // Try to parse JSON from the assistant's message
+    try {
+      const jsonStart = assistantMessage.indexOf('{');
+      if (jsonStart !== -1) {
+        const jsonString = assistantMessage.slice(jsonStart);
+        const data = JSON.parse(jsonString);
+        setProgress((prev) => ({
+          ...prev,
+          focusCompetencies: data.focusCompetencies || prev.focusCompetencies,
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to parse JSON:', error);
+    }
+  }
+
   onMount(async () => {
+    if (!progress().preferredRoleTitle) {
+      alert('Please complete the Role Explorer module first.');
+      return;
+    }
     await sendMessage('');
   });
 
