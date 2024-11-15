@@ -13,16 +13,8 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [progress, setProgress] = createSignal({
-    preferredRoleTitle: '',
-    detailedPreferredRoleTitle: '',
-    academicYear: '',
-    subjectsTaken: '',
-    country: '',
-    sector: '',
-    organisationType: '',
-    focusCompetencies: [],
-  });
+  const [progress, setProgress] = createSignal(undefined); // Start with undefined
+  const [progressLoaded, setProgressLoaded] = createSignal(false);
 
   const checkUserSignedIn = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -67,12 +59,26 @@ function App() {
           const data = await response.json();
           if (data) {
             setProgress(data);
+          } else {
+            // If no progress data, initialize progress
+            setProgress({
+              preferredRoleTitle: '',
+              detailedPreferredRoleTitle: '',
+              academicYear: '',
+              subjectsTaken: '',
+              country: '',
+              sector: '',
+              organisationType: '',
+              focusCompetencies: [],
+            });
           }
         } else {
           console.error('Error fetching progress:', response.statusText);
         }
       } catch (error) {
         console.error('Error fetching progress:', error);
+      } finally {
+        setProgressLoaded(true);
       }
     }
   });
@@ -93,9 +99,9 @@ function App() {
     }
   };
 
-  // Save progress when progress changes
+  // Save progress when progress changes, after progress is loaded
   createEffect(() => {
-    if (user()) {
+    if (user() && progressLoaded()) {
       progress(); // Ensure reactivity
       saveProgress();
     }
@@ -117,7 +123,7 @@ function App() {
         <Route
           path="/develop-my-vision/*"
           element={
-            <Show when={user()} fallback={<Navigate href="/" />}>
+            <Show when={user() && progressLoaded()} fallback={<Navigate href="/" />}>
               <DevelopMyVision user={user} handleSignOut={handleSignOut} progress={progress} setProgress={setProgress} />
             </Show>
           }
@@ -125,7 +131,7 @@ function App() {
         <Route
           path="/close-my-skill-gaps"
           element={
-            <Show when={user()} fallback={<Navigate href="/" />}>
+            <Show when={user() && progressLoaded()} fallback={<Navigate href="/" />}>
               <CloseMySkillGaps user={user} handleSignOut={handleSignOut} progress={progress} />
             </Show>
           }
@@ -133,7 +139,7 @@ function App() {
         <Route
           path="/application-development"
           element={
-            <Show when={user()} fallback={<Navigate href="/" />}>
+            <Show when={user() && progressLoaded()} fallback={<Navigate href="/" />}>
               <ApplicationDevelopment user={user} handleSignOut={handleSignOut} progress={progress} />
             </Show>
           }
@@ -141,7 +147,7 @@ function App() {
         <Route
           path="/my-profile"
           element={
-            <Show when={user()} fallback={<Navigate href="/" />}>
+            <Show when={user() && progressLoaded()} fallback={<Navigate href="/" />}>
               <MyProfile user={user} handleSignOut={handleSignOut} progress={progress} />
             </Show>
           }
