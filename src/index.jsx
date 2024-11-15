@@ -3,11 +3,12 @@ import App from './App';
 import { Router } from '@solidjs/router';
 import './index.css';
 import * as Sentry from '@sentry/browser';
+import { BrowserTracing } from '@sentry/tracing';
 
 Sentry.init({
   dsn: import.meta.env.VITE_PUBLIC_SENTRY_DSN,
   environment: import.meta.env.VITE_PUBLIC_APP_ENV,
-  integrations: [Sentry.BrowserTracing],
+  integrations: [new BrowserTracing()],
   initialScope: {
     tags: {
       type: 'frontend',
