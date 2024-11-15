@@ -44,10 +44,22 @@ Please only provide the JSON object and nothing else.`;
         prompt,
         response_type: 'text',
       });
-      // Remove JSON from response
-      const cleanResponse = response.replace(/{[\s\S]*$/, '').trim();
-      setChatHistory([...updatedChatHistory, { role: 'assistant', content: cleanResponse }]);
-      extractData(response);
+
+      // Try to separate JSON from assistant's response
+      const jsonStart = response.indexOf('{');
+      let textResponse = response;
+      let jsonString = '';
+      if (jsonStart !== -1) {
+        textResponse = response.slice(0, jsonStart).trim();
+        jsonString = response.slice(jsonStart).trim();
+      }
+
+      setChatHistory([...updatedChatHistory, { role: 'assistant', content: textResponse }]);
+
+      // Extract key information based on the assistant's message
+      if (jsonString) {
+        extractData(jsonString);
+      }
     } catch (error) {
       console.error('Error during ChatGPT request:', error);
     } finally {
@@ -55,19 +67,15 @@ Please only provide the JSON object and nothing else.`;
     }
   };
 
-  function extractData(assistantMessage) {
+  function extractData(jsonString) {
     // Try to parse JSON from the assistant's message
     try {
-      const jsonStart = assistantMessage.indexOf('{');
-      if (jsonStart !== -1) {
-        const jsonString = assistantMessage.slice(jsonStart);
-        const data = JSON.parse(jsonString);
-        setProgress((prev) => ({
-          ...prev,
-          focusCompetencies: data.focusCompetencies || prev.focusCompetencies,
-        }));
-        setConversationCompleted(true);
-      }
+      const data = JSON.parse(jsonString);
+      setProgress((prev) => ({
+        ...prev,
+        focusCompetencies: data.focusCompetencies || prev.focusCompetencies,
+      }));
+      setConversationCompleted(true);
     } catch (error) {
       console.error('Failed to parse JSON:', error);
     }

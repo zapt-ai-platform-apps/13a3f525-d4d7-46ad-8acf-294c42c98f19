@@ -91,14 +91,21 @@ Please only provide the JSON object and nothing else.`;
         response_type: 'text',
       });
 
-      // Remove JSON from response
-      const cleanResponse = response.replace(/{[\s\S]*$/, '').trim();
+      // Try to separate JSON from assistant's response
+      const jsonStart = response.indexOf('{');
+      let textResponse = response;
+      let jsonString = '';
+      if (jsonStart !== -1) {
+        textResponse = response.slice(0, jsonStart).trim();
+        jsonString = response.slice(jsonStart).trim();
+      }
 
-      // Add assistant message without JSON to chatHistory
-      setChatHistory([...updatedChatHistory, { role: 'assistant', content: cleanResponse }]);
+      setChatHistory([...updatedChatHistory, { role: 'assistant', content: textResponse }]);
 
       // Extract key information based on the assistant's message
-      extractData(response);
+      if (jsonString) {
+        extractData(jsonString);
+      }
     } catch (error) {
       console.error('Error during ChatGPT request:', error);
     } finally {
@@ -106,25 +113,21 @@ Please only provide the JSON object and nothing else.`;
     }
   };
 
-  function extractData(assistantMessage) {
+  function extractData(jsonString) {
     // Try to parse JSON from the assistant's message
     try {
-      const jsonStart = assistantMessage.indexOf('{');
-      if (jsonStart !== -1) {
-        const jsonString = assistantMessage.slice(jsonStart);
-        const data = JSON.parse(jsonString);
-        // Now update progress with the data
-        setProgress((prev) => ({
-          ...prev,
-          preferredRoleTitle: data.preferredRoleTitle || prev.preferredRoleTitle,
-          detailedPreferredRoleTitle: data.detailedPreferredRoleTitle || prev.detailedPreferredRoleTitle,
-          academicYear: data.academicYear || prev.academicYear,
-          subjectsTaken: data.subjectsTaken || prev.subjectsTaken,
-          country: data.country || prev.country,
-        }));
-        // Set conversation completed
-        setConversationCompleted(true);
-      }
+      const data = JSON.parse(jsonString);
+      // Now update progress with the data
+      setProgress((prev) => ({
+        ...prev,
+        preferredRoleTitle: data.preferredRoleTitle || prev.preferredRoleTitle,
+        detailedPreferredRoleTitle: data.detailedPreferredRoleTitle || prev.detailedPreferredRoleTitle,
+        academicYear: data.academicYear || prev.academicYear,
+        subjectsTaken: data.subjectsTaken || prev.subjectsTaken,
+        country: data.country || prev.country,
+      }));
+      // Set conversation completed
+      setConversationCompleted(true);
     } catch (error) {
       console.error('Failed to parse JSON:', error);
     }

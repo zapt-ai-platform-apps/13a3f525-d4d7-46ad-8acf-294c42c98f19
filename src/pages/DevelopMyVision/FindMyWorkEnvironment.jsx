@@ -43,10 +43,21 @@ Please only provide the JSON object and nothing else.`;
         prompt,
         response_type: 'text',
       });
-      // Remove JSON from response
-      const cleanResponse = response.replace(/{[\s\S]*$/, '').trim();
-      setChatHistory([...updatedChatHistory, { role: 'assistant', content: cleanResponse }]);
-      extractData(response);
+
+      // Try to separate JSON from assistant's response
+      const jsonStart = response.indexOf('{');
+      let textResponse = response;
+      let jsonString = '';
+      if (jsonStart !== -1) {
+        textResponse = response.slice(0, jsonStart).trim();
+        jsonString = response.slice(jsonStart).trim();
+      }
+
+      setChatHistory([...updatedChatHistory, { role: 'assistant', content: textResponse }]);
+
+      if (jsonString) {
+        extractData(jsonString);
+      }
     } catch (error) {
       console.error('Error during ChatGPT request:', error);
     } finally {
@@ -54,20 +65,15 @@ Please only provide the JSON object and nothing else.`;
     }
   };
 
-  function extractData(assistantMessage) {
-    // Try to parse JSON from the assistant's message
+  function extractData(jsonString) {
     try {
-      const jsonStart = assistantMessage.indexOf('{');
-      if (jsonStart !== -1) {
-        const jsonString = assistantMessage.slice(jsonStart);
-        const data = JSON.parse(jsonString);
-        setProgress((prev) => ({
-          ...prev,
-          sector: data.sector || prev.sector,
-          organisationType: data.organisationType || prev.organisationType,
-        }));
-        setConversationCompleted(true);
-      }
+      const data = JSON.parse(jsonString);
+      setProgress((prev) => ({
+        ...prev,
+        sector: data.sector || prev.sector,
+        organisationType: data.organisationType || prev.organisationType,
+      }));
+      setConversationCompleted(true);
     } catch (error) {
       console.error('Failed to parse JSON:', error);
     }
