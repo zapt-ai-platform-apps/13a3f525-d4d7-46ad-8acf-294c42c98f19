@@ -1,45 +1,64 @@
 import Header from '../components/Header';
 import { Routes, Route, useNavigate } from '@solidjs/router';
-import { onMount } from 'solid-js';
+import { Show } from 'solid-js';
 import RoleExplorer from './DevelopMyVision/RoleExplorer';
 import FindMyWorkEnvironment from './DevelopMyVision/FindMyWorkEnvironment';
 import IdentifyMySkillGaps from './DevelopMyVision/IdentifyMySkillGaps';
 import ImmersiveDayInTheLife from './DevelopMyVision/ImmersiveDayInTheLife';
 
 function DevelopMyVision(props) {
-  const { user, handleSignOut, progress, setProgress } = props;
-  const navigate = useNavigate();
-
-  onMount(() => {
-    if (!user()) {
-      navigate('/login');
-    }
-  });
+  const { user, handleSignOut, progress, setProgress, progressLoaded } = props;
 
   return (
     <div class="min-h-screen flex flex-col">
       <Header user={user} handleSignOut={handleSignOut} />
       <main class="flex-grow container mx-auto px-4 py-8 h-full">
-        <h2 class="text-3xl font-bold mb-6 text-purple-600">Develop My Vision</h2>
-        <Routes>
-          <Route path="/" element={<ModuleList />} />
-          <Route
-            path="/role-explorer"
-            element={<RoleExplorer user={user} progress={progress} setProgress={setProgress} />}
-          />
-          <Route
-            path="/find-my-work-environment"
-            element={<FindMyWorkEnvironment user={user} progress={progress} setProgress={setProgress} />}
-          />
-          <Route
-            path="/identify-my-skill-gaps"
-            element={<IdentifyMySkillGaps user={user} progress={progress} setProgress={setProgress} />}
-          />
-          <Route
-            path="/immersive-day-in-the-life"
-            element={<ImmersiveDayInTheLife user={user} progress={progress} setProgress={setProgress} />}
-          />
-        </Routes>
+        <Show when={progressLoaded()} fallback={<div>Loading...</div>}>
+          <h2 class="text-3xl font-bold mb-6 text-purple-600">Develop My Vision</h2>
+          <Routes>
+            <Route path="/" element={<ModuleList />} />
+            <Route
+              path="/role-explorer"
+              element={
+                <RoleExplorer
+                  user={user}
+                  progress={progress}
+                  setProgress={setProgress}
+                />
+              }
+            />
+            <Route
+              path="/find-my-work-environment"
+              element={
+                <FindMyWorkEnvironment
+                  user={user}
+                  progress={progress}
+                  setProgress={setProgress}
+                />
+              }
+            />
+            <Route
+              path="/identify-my-skill-gaps"
+              element={
+                <IdentifyMySkillGaps
+                  user={user}
+                  progress={progress}
+                  setProgress={setProgress}
+                />
+              }
+            />
+            <Route
+              path="/immersive-day-in-the-life"
+              element={
+                <ImmersiveDayInTheLife
+                  user={user}
+                  progress={progress}
+                  setProgress={setProgress}
+                />
+              }
+            />
+          </Routes>
+        </Show>
       </main>
     </div>
   );
