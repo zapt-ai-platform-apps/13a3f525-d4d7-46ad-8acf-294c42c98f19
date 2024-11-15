@@ -50,6 +50,53 @@ function App() {
     });
   });
 
+  // Fetch user progress when user is set
+  createEffect(async () => {
+    if (user()) {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        const response = await fetch('/api/getProgress', {
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          if (data) {
+            setProgress(data);
+          }
+        } else {
+          console.error('Error fetching progress:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching progress:', error);
+      }
+    }
+  });
+
+  // Save progress when it changes
+  createEffect(() => {
+    if (user()) {
+      saveProgress();
+    }
+  });
+
+  const saveProgress = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      await fetch('/api/saveProgress', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ progressData: progress() }),
+      });
+    } catch (error) {
+      console.error('Error saving progress:', error);
+    }
+  };
+
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     setUser(null);
