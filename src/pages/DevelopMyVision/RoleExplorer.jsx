@@ -8,6 +8,7 @@ function RoleExplorer(props) {
   const [inputValue, setInputValue] = createSignal('');
   const [loading, setLoading] = createSignal(false);
   const [chatHistory, setChatHistory] = createSignal([]);
+  const [conversationCompleted, setConversationCompleted] = createSignal(false);
   const navigate = useNavigate();
 
   const initialPrompt = `You are a career coach named immerJ for secondary school students, engaging users in a step-by-step conversational format. Ask each question one at a time, waiting for the user's response before continuing to the next question, mimicking a live, interactive chat experience.
@@ -90,7 +91,11 @@ Please only provide the JSON object and nothing else.`;
         response_type: 'text',
       });
 
-      setChatHistory([...updatedChatHistory, { role: 'assistant', content: response }]);
+      // Remove JSON from response
+      const cleanResponse = response.replace(/{[\s\S]*$/, '').trim();
+
+      // Add assistant message without JSON to chatHistory
+      setChatHistory([...updatedChatHistory, { role: 'assistant', content: cleanResponse }]);
 
       // Extract key information based on the assistant's message
       extractData(response);
@@ -117,6 +122,8 @@ Please only provide the JSON object and nothing else.`;
           subjectsTaken: data.subjectsTaken || prev.subjectsTaken,
           country: data.country || prev.country,
         }));
+        // Set conversation completed
+        setConversationCompleted(true);
       }
     } catch (error) {
       console.error('Failed to parse JSON:', error);
@@ -147,11 +154,7 @@ Please only provide the JSON object and nothing else.`;
                   msg.role === 'user' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-800'
                 }`}
               >
-                {msg.role === 'assistant' ? (
-                  <SolidMarkdown>{msg.content}</SolidMarkdown>
-                ) : (
-                  msg.content
-                )}
+                <SolidMarkdown>{msg.content}</SolidMarkdown>
               </div>
             </div>
           )}
@@ -159,6 +162,13 @@ Please only provide the JSON object and nothing else.`;
         <Show when={loading()}>
           <div class="text-center">
             <span class="text-gray-500">Loading...</span>
+          </div>
+        </Show>
+        <Show when={conversationCompleted()}>
+          <div class="mt-4 text-center">
+            <p class="text-green-600 font-semibold">
+              Thank you for completing this module. Please proceed to the next module.
+            </p>
           </div>
         </Show>
       </div>
@@ -169,11 +179,12 @@ Please only provide the JSON object and nothing else.`;
           onInput={(e) => setInputValue(e.target.value)}
           class="flex-1 p-3 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent box-border"
           placeholder="Type your response..."
+          disabled={conversationCompleted()}
         />
         <button
           type="submit"
           class="bg-purple-500 text-white px-6 rounded-r-lg cursor-pointer hover:bg-purple-600 transition duration-300 ease-in-out transform hover:scale-105"
-          disabled={loading()}
+          disabled={loading() || conversationCompleted()}
         >
           Send
         </button>

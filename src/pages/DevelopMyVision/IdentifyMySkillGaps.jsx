@@ -7,6 +7,7 @@ function IdentifyMySkillGaps(props) {
   const [inputValue, setInputValue] = createSignal('');
   const [loading, setLoading] = createSignal(false);
   const [chatHistory, setChatHistory] = createSignal([]);
+  const [conversationCompleted, setConversationCompleted] = createSignal(false);
 
   const roleTitle = progress().preferredRoleTitle || 'your selected role';
 
@@ -43,7 +44,9 @@ Please only provide the JSON object and nothing else.`;
         prompt,
         response_type: 'text',
       });
-      setChatHistory([...updatedChatHistory, { role: 'assistant', content: response }]);
+      // Remove JSON from response
+      const cleanResponse = response.replace(/{[\s\S]*$/, '').trim();
+      setChatHistory([...updatedChatHistory, { role: 'assistant', content: cleanResponse }]);
       extractData(response);
     } catch (error) {
       console.error('Error during ChatGPT request:', error);
@@ -63,6 +66,7 @@ Please only provide the JSON object and nothing else.`;
           ...prev,
           focusCompetencies: data.focusCompetencies || prev.focusCompetencies,
         }));
+        setConversationCompleted(true);
       }
     } catch (error) {
       console.error('Failed to parse JSON:', error);
@@ -96,11 +100,7 @@ Please only provide the JSON object and nothing else.`;
                   msg.role === 'user' ? 'bg-purple-500 text-white' : 'bg-gray-200 text-gray-800'
                 }`}
               >
-                {msg.role === 'assistant' ? (
-                  <SolidMarkdown>{msg.content}</SolidMarkdown>
-                ) : (
-                  msg.content
-                )}
+                <SolidMarkdown>{msg.content}</SolidMarkdown>
               </div>
             </div>
           )}
@@ -108,6 +108,13 @@ Please only provide the JSON object and nothing else.`;
         <Show when={loading()}>
           <div class="text-center">
             <span class="text-gray-500">Loading...</span>
+          </div>
+        </Show>
+        <Show when={conversationCompleted()}>
+          <div class="mt-4 text-center">
+            <p class="text-green-600 font-semibold">
+              Thank you for completing this module. Please proceed to the next module.
+            </p>
           </div>
         </Show>
       </div>
@@ -118,11 +125,12 @@ Please only provide the JSON object and nothing else.`;
           onInput={(e) => setInputValue(e.target.value)}
           class="flex-1 p-3 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-purple-400 focus:border-transparent box-border"
           placeholder="Type your response..."
+          disabled={conversationCompleted()}
         />
         <button
           type="submit"
           class="bg-purple-500 text-white px-6 rounded-r-lg cursor-pointer hover:bg-purple-600 transition duration-300 ease-in-out transform hover:scale-105"
-          disabled={loading()}
+          disabled={loading() || conversationCompleted()}
         >
           Send
         </button>

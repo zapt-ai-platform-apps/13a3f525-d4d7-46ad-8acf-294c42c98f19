@@ -8,6 +8,13 @@ function MyProfile(props) {
     progress().preferredRoleTitle ||
     'Your Preferred Role';
 
+  const formatSubjects = (subjects) => {
+    return subjects
+      .split(/[\s,]+/)
+      .filter(Boolean)
+      .join(', ');
+  };
+
   return (
     <div class="h-full flex flex-col">
       <Header user={user} handleSignOut={handleSignOut} />
@@ -20,7 +27,8 @@ function MyProfile(props) {
               <strong>Academic Year:</strong> {progress().academicYear || 'Not set'}
             </li>
             <li>
-              <strong>Subjects Taken:</strong> {progress().subjectsTaken || 'Not set'}
+              <strong>Subjects Taken:</strong>{' '}
+              {progress().subjectsTaken ? formatSubjects(progress().subjectsTaken) : 'Not set'}
             </li>
             <li>
               <strong>Country:</strong> {progress().country || 'Not set'}
