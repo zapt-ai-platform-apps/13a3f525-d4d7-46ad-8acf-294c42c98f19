@@ -3,7 +3,7 @@ import App from './App';
 import { Router } from '@solidjs/router';
 import './index.css';
 import * as Sentry from '@sentry/browser';
-import { BrowserTracing } from '@sentry/tracing';
+import { BrowserTracing } from '@sentry/browser';
 
 Sentry.init({
   dsn: import.meta.env.VITE_PUBLIC_SENTRY_DSN,
