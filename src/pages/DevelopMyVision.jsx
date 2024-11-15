@@ -1,5 +1,6 @@
 import Header from '../components/Header';
 import { Routes, Route, useNavigate } from '@solidjs/router';
+import { onMount } from 'solid-js';
 import RoleExplorer from './DevelopMyVision/RoleExplorer';
 import FindMyWorkEnvironment from './DevelopMyVision/FindMyWorkEnvironment';
 import IdentifyMySkillGaps from './DevelopMyVision/IdentifyMySkillGaps';
